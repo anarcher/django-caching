@@ -69,7 +69,7 @@ def get_caching_related_manager(superclass, instance, field_name, related_name):
             qs = qs._clone(klass=PKListQuerySet)
             pk_list = cache.get(key)
             if pk_list is None:
-                pk_list = qs.values_list('pk', flat=True)
+                pk_list = list(qs.values_list('pk', flat=True))
                 cache.add(key, pk_list, CACHE_DURATION)
             else:
                 qs.from_cache = True
